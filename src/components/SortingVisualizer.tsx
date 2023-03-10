@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { randomNumberFromInterval, resetArray } from "../utils/Array/Array";
 import { mergeSort } from "../utils/Sorting/MergeSort";
+import Bar from "./Bar";
 
 const SortingVisualizer: React.FC = () => {
-  const [array, setArray] = useState<number[]>(
-    Array.from({ length: 100 }, () => Math.floor(Math.random() * (300 - 5 + 1)))
+  let [array, setArray] = useState<number[]>(
+    Array.from({ length: 300 }, () => Math.floor(Math.random() * (300 - 5 + 1)))
   );
 
-  const sortedArray = array.slice().sort((a, b) => a - b);
-  console.log("Expected Result", sortedArray);
+  //const sortedArray = array.slice().sort((a, b) => a - b);
 
-  //console.log(array);
-  //mergeSort(array, 0, array.length - 1);
+  const setSortedArray = async () => {
+    const sortArray: any = await mergeSort(array, 0, array.length - 1);
+    setArray([...sortArray]);
+  };
+
   return (
     <>
       <div className="visualizer">
-        {array &&
-          array.map((number: number, index: number) => {
-            return <div className="bar" style={{ height: number * 2 + "px" }} key={index}></div>;
-          })}
+        {array.map((number: number, index: number) => {
+          return <Bar number={number} key={index} />;
+        })}
       </div>
-      <button onClick={() => resetArray(300, setArray)}>Generate a new array</button>
-      <button onClick={() => mergeSort(array, 0, array.length - 1, setArray)}>Sort</button>
-      <button onClick={() => setArray(array)}>Display sorted array</button>
+      <button onClick={() => resetArray(100, setArray)}>Generate a new array</button>
+      <button onClick={() => mergeSort(array, 0, array.length - 1)}>Sort</button>
+      <button onClick={() => setSortedArray()}>Display sorted array</button>
     </>
   );
 };

@@ -1,13 +1,15 @@
-export const mergeSort = (array: number[], startIndex: number, endIndex: number, setArray: any) => {
+export const mergeSort = async (array: number[], startIndex: number, endIndex: number) => {
   if (startIndex >= endIndex) return;
   let midIndex = Math.floor((startIndex + endIndex) / 2);
 
-  mergeSort(array, startIndex, midIndex, setArray);
-  mergeSort(array, midIndex + 1, endIndex, setArray);
-  merge(array, startIndex, midIndex, endIndex, setArray);
+  mergeSort(array, startIndex, midIndex);
+  mergeSort(array, midIndex + 1, endIndex);
+  merge(array, startIndex, midIndex, endIndex);
+
+  return array;
 };
 
-function merge(array: number[], startIndex: number, midIndex: number, endIndex: number, setArray: any) {
+function merge(array: number[], startIndex: number, midIndex: number, endIndex: number) {
   const n1 = midIndex - startIndex + 1;
   const n2 = endIndex - midIndex;
 
@@ -22,8 +24,6 @@ function merge(array: number[], startIndex: number, midIndex: number, endIndex: 
   for (let j = 0; j < n2; j++) {
     subarray2[j] = array[midIndex + 1 + j];
   }
-
-  console.log(subarray1, subarray2);
 
   let i = 0;
   let j = 0;
@@ -53,7 +53,4 @@ function merge(array: number[], startIndex: number, midIndex: number, endIndex: 
     j++;
     k++;
   }
-
-  console.log(array);
-  setArray(array);
 }
