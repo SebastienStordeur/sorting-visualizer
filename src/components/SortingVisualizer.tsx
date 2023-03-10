@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { quickSort } from "../utils/Algorithms/QuickSort";
-import { randomNumberFromInterval, resetArray } from "../utils/Array/Array";
+import { resetArray } from "../utils/Array/Array";
 import { mergeSort } from "../utils/Sorting/MergeSort";
 import Bar from "./Bar";
 
-const SortingVisualizer: React.FC = () => {
-  let [array, setArray] = useState<number[]>(
-    Array.from({ length: 300 }, () => Math.floor(Math.random() * (300 - 5 + 1)))
-  );
+interface VisualizerInterface {
+  array: number[];
+  setArray: Dispatch<SetStateAction<number[]>>;
+}
 
+const SortingVisualizer: React.FC<VisualizerInterface> = ({ array, setArray }) => {
   const quickSortedArray = quickSort(array);
-  console.log(quickSortedArray);
+  /* console.log(quickSortedArray); */
   //const sortedArray = array.slice().sort((a, b) => a - b);
 
   const setSortedArray = async () => {

@@ -1,3 +1,13 @@
+.settings {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+
 .visualizer {
   display: flex;
   justify-content: center;

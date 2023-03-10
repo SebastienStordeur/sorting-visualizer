@@ -1,14 +1,19 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
 import SortingVisualizer from "./components/SortingVisualizer";
+import Settings from "./components/Settings";
 
-function App() {
+const App: React.FC = () => {
+  let [array, setArray] = useState<number[]>(
+    Array.from({ length: 300 }, () => Math.floor(Math.random() * (300 - 5 + 1)))
+  );
+
   return (
     <div className="App">
-      <SortingVisualizer />
+      <Settings setArray={setArray} />
+      <SortingVisualizer array={array} setArray={setArray} />
     </div>
   );
-}
+};
 
 export default App;
