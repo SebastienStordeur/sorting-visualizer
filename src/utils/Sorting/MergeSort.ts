@@ -1,24 +1,13 @@
-export const mergeSort = (array: number[]) => {
-  //Merges 2 subarrays of array
-  //1st subarray is array[left index, mid]
-  //2nd subarray is array[mid + 1, end]
+export const mergeSort = (array: number[], startIndex: number, endIndex: number, setArray: any) => {
+  if (startIndex >= endIndex) return;
+  let midIndex = Math.floor((startIndex + endIndex) / 2);
 
-  /** If the array is too short to be sorted */
-
-  const temporaryArray = array.slice();
-  mergeHelper(array, 0, array.length - 1, temporaryArray);
+  mergeSort(array, startIndex, midIndex, setArray);
+  mergeSort(array, midIndex + 1, endIndex, setArray);
+  merge(array, startIndex, midIndex, endIndex, setArray);
 };
 
-function mergeHelper(array: number[], startIndex: number, endIndex: number, temporaryArray: number[]) {
-  if (startIndex === endIndex) return;
-  const midIndex = Math.floor((startIndex + endIndex) / 2);
-
-  mergeHelper(temporaryArray, startIndex, midIndex, array);
-  mergeHelper(temporaryArray, midIndex + 1, endIndex, array);
-  merge(array, startIndex, midIndex, endIndex, temporaryArray);
-}
-
-function merge(array: number[], startIndex: number, midIndex: number, endIndex: number, temporaryArray: number[]) {
+function merge(array: number[], startIndex: number, midIndex: number, endIndex: number, setArray: any) {
   const n1 = midIndex - startIndex + 1;
   const n2 = endIndex - midIndex;
 
@@ -26,29 +15,45 @@ function merge(array: number[], startIndex: number, midIndex: number, endIndex: 
   let subarray1 = new Array(n1);
   let subarray2 = new Array(n2);
 
-  for (var i = 0; i < n1; i++) subarray1[i] = array[startIndex + i];
-  for (var j = 0; j < n2; j++) subarray2[j] = array[midIndex + 1 + j];
+  //copy data to subarrays
+  for (let i = 0; i < n1; i++) {
+    subarray1[i] = array[startIndex + i];
+  }
+  for (let j = 0; j < n2; j++) {
+    subarray2[j] = array[midIndex + 1 + j];
+  }
 
   console.log(subarray1, subarray2);
 
-  // let k = startIndex;
-  // let i = startIndex;
-  // let j = midIndex + 1;
+  let i = 0;
+  let j = 0;
+  let k = startIndex;
 
-  // while (i <= midIndex && j <= endIndex) {
-  //   if (temporaryArray[i] < temporaryArray[j]) {
-  //     temporaryArray[k++] = array[i++];
-  //   } else {
-  //     temporaryArray[k++] = array[j++];
-  //   }
-  // }
+  while (i < n1 && j < n2) {
+    if (subarray1[i] <= subarray2[j]) {
+      array[k] = subarray1[i];
+      i++;
+    } else {
+      array[k] = subarray2[j];
+      j++;
+    }
+    k++;
+  }
 
-  // while (i <= midIndex) {
-  //   temporaryArray[k++] = array[i++];
-  // }
+  // Operation on remaining elements of the left sub-array
+  while (i < n1) {
+    array[k] = subarray1[i];
+    i++;
+    k++;
+  }
 
-  // while (j <= endIndex) {
-  //   temporaryArray[k++] = array[j++];
-  // }
-  // console.log(array, temporaryArray);
+  // Operation on remaining elements of the right sub-array
+  while (j < n2) {
+    array[k] = subarray2[j];
+    j++;
+    k++;
+  }
+
+  console.log(array);
+  setArray(array);
 }

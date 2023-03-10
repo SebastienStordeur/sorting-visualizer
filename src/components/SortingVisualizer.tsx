@@ -17,12 +17,12 @@ const SortingVisualizer: React.FC = () => {
       <div className="visualizer">
         {array &&
           array.map((number: number, index: number) => {
-            //console.log(array);
-            return <div className="bar" style={{ height: number + "px" }} key={index}></div>;
+            return <div className="bar" style={{ height: number * 2 + "px" }} key={index}></div>;
           })}
       </div>
       <button onClick={() => resetArray(300, setArray)}>Generate a new array</button>
-      <button onClick={() => mergeSort(array)}>Sort</button>
+      <button onClick={() => mergeSort(array, 0, array.length - 1, setArray)}>Sort</button>
+      <button onClick={() => setArray(array)}>Display sorted array</button>
     </>
   );
 };
