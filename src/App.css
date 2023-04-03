@@ -11,12 +11,16 @@
 .visualizer {
   display: flex;
   justify-content: center;
+
+  position: relative;
+  margin-bottom: auto;
   gap: 1px;
   width: 100%;
-  /* transform: rotate(180deg); */
+  height: 85vh;
 }
 
 .bar {
+  align-self: baseline;
   width: 2px;
   background-color: aquamarine;
 }

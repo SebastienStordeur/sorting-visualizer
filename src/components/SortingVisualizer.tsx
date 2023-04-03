@@ -26,7 +26,6 @@ const SortingVisualizer: React.FC<VisualizerInterface> = ({ array, setArray }) =
       </div>
       <button onClick={() => mergeSort(array, 0, array.length - 1)}>Sort</button>
       <button onClick={() => setSortedArray()}>Display sorted array</button>
-
       <button onClick={() => quickSort(array)}>Quick sort</button>
     </React.Fragment>
   );
